@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Carrito | El Baúl de la Moda</title>
+
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/header.css">
+<link rel="stylesheet" href="css/carrito.css">
+<link rel="stylesheet" href="css/responsive.css">
+
+</head>
+
+<body>
+
+<header>
+
+<div class="logo">
+
+<img src="img/logo.png">
+
+<div>
+
+<h1>El Baúl de la Moda</h1>
+
+<p>Moda con estilo</p>
+
+</div>
+
+</div>
+
+<nav>
+
+<a href="index.html">Inicio</a>
+
+<a href="productos.html">Productos</a>
+
+<a href="carrito.html">
+
+🛒
+
+<span id="contador-carrito"></span>
+
+</a>
+
+</nav>
+
+</header>
+
+<section class="carrito">
+
+<h2>Mi carrito</h2>
+
+<div id="lista-carrito">
+
+</div>
+
+<h3 id="total"></h3>
+
+<section class="datos-pedido">
+
+    <h2>Finalizar pedido</h2>
+
+    <div class="form-pedido">
+
+        <div>
+            <label for="cliente-nombre">Nombre y apellido</label>
+
+            <input
+                type="text"
+                id="cliente-nombre"
+                placeholder="Ej: María López"
+            >
+        </div>
+
+        <div>
+            <label for="cliente-telefono">WhatsApp</label>
+
+            <input
+                type="tel"
+                id="cliente-telefono"
+                placeholder="Ej: 3518112558"
+            >
+        </div>
+
+        <div>
+            <label for="cliente-email">Correo electrónico</label>
+
+            <input
+                type="email"
+                id="cliente-email"
+                placeholder="Ej: maria@email.com"
+            >
+        </div>
+
+        <div>
+            <label for="cliente-direccion">Dirección</label>
+
+            <input
+                type="text"
+                id="cliente-direccion"
+                placeholder="Calle, número y localidad"
+            >
+        </div>
+
+        <div class="campo-completo">
+
+            <label for="cliente-notas">Notas del pedido</label>
+
+            <textarea
+                id="cliente-notas"
+                placeholder="Color, horario de entrega u otra aclaración"
+            ></textarea>
+
+        </div>
+
+    </div>
+
+    <button id="confirmar-pedido" class="btn-confirmar-pedido">
+
+        Confirmar pedido
+
+    </button>
+
+    <p id="mensaje-pedido"></p>
+
+</section>
+
+<button id="vaciar">
+
+Vaciar carrito
+
+</button>
+
+</section>
+
+<script src="js/productos.js"></script>
+<script src="js/carrito.js"></script>
+<script src="js/main.js"></script>
+
+<script>
+
+const lista=document.getElementById("lista-carrito");
+
+const total=document.getElementById("total");
+
+function mostrarCarrito(){
+
+    lista.innerHTML="";
+
+    let suma=0;
+
+    carrito.forEach(item=>{
+
+        suma+=item.precio*item.cantidad;
+
+        lista.innerHTML+=`
+
+        <div class="item">
+
+            <img src="${item.imagen}">
+
+            <div>
+
+                <h3>${item.nombre}</h3>
+
+                <p>$${item.precio.toLocaleString("es-AR")}</p>
+
+                <p>Cantidad: ${item.cantidad}</p>
+
+            </div>
+
+        </div>
+
+        `;
+
+    });
+
+    total.innerHTML="Total: $"+suma.toLocaleString("es-AR");
+
+}
+
+mostrarCarrito();
+
+document.getElementById("vaciar").onclick=()=>{
+
+    localStorage.removeItem("carrito");
+
+    carrito=[];
+
+    mostrarCarrito();
+
+    actualizarContador();
+
+}
+
+</script>
+
+<script src="js/productos.js"></script>
+<script src="js/carrito.js"></script>
+
+<script
+    type="module"
+    src="js/pedidos.js">
+</script>
+
+</body>
+
+</html>

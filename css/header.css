@@ -1,0 +1,157 @@
+/* ===========================
+   HEADER
+=========================== */
+
+header{
+
+    width:100%;
+
+    background:white;
+
+    position:sticky;
+
+    top:0;
+
+    z-index:1000;
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    padding:18px 6%;
+
+    box-shadow:0 2px 15px rgba(0,0,0,.08);
+
+}
+
+/* ===========================
+   LOGO
+=========================== */
+
+.logo{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:15px;
+
+}
+
+.logo img{
+
+    width:70px;
+
+    height:70px;
+
+    border-radius:50%;
+
+    object-fit:cover;
+
+}
+
+.logo h1{
+
+    font-size:30px;
+
+    color:#b88b3a;
+
+}
+
+.logo p{
+
+    font-size:14px;
+
+    color:#777;
+
+}
+
+/* ===========================
+   MENÚ
+=========================== */
+
+nav{
+
+    display:flex;
+
+    gap:35px;
+
+}
+
+nav a{
+
+    font-size:17px;
+
+    font-weight:500;
+
+    color:#333;
+
+    position:relative;
+
+    transition:.3s;
+
+}
+
+nav a:hover{
+
+    color:#b88b3a;
+
+}
+
+/* Línea debajo del menú */
+
+nav a::after{
+
+    content:"";
+
+    position:absolute;
+
+    left:0;
+
+    bottom:-6px;
+
+    width:0;
+
+    height:2px;
+
+    background:#b88b3a;
+
+    transition:.3s;
+
+}
+
+nav a:hover::after{
+
+    width:100%;
+
+}
+
+/* ===========================
+   ICONOS
+=========================== */
+
+.iconos{
+
+    display:flex;
+
+    gap:25px;
+
+    font-size:25px;
+
+    cursor:pointer;
+
+}
+
+.iconos span{
+
+    transition:.3s;
+
+}
+
+.iconos span:hover{
+
+    transform:scale(1.2);
+
+}

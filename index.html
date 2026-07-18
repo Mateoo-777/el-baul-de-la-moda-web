@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>El Baúl de la Moda</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="css/style.css">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+</head>
+
+<body>
+
+<!-- ================= HEADER ================= -->
+
+<header class="header">
+
+    <div class="contenedor-header">
+
+        <a href="index.html" class="logo">
+
+            <img src="img/logo.jpeg" alt="El Baúl de la Moda">
+
+            <div>
+
+                <h1>El Baúl de la Moda</h1>
+
+                <span>Moda femenina</span>
+
+            </div>
+
+        </a>
+
+        <nav class="menu">
+
+            <a href="index.html">Inicio</a>
+
+            <a href="productos.html?categoria=vestidos">Vestidos</a>
+
+            <a href="productos.html?categoria=blusas">Blusas</a>
+
+            <a href="productos.html?categoria=pantalones">Pantalones</a>
+
+            <a href="#contacto">Contacto</a>
+
+        </nav>
+
+        <div class="iconos">
+
+            <a href="#"><i class="fa-solid fa-magnifying-glass"></i></a>
+
+            <a href="#"><i class="fa-regular fa-heart"></i></a>
+
+            <a href="carrito.html">
+
+                <i class="fa-solid fa-cart-shopping"></i>
+
+                <span id="contador-carrito">0</span>
+
+            </a>
+
+        </div>
+
+    </div>
+
+</header>
+
+<!-- ================= BANNER ================= -->
+
+<section class="banner">
+
+    <div class="slider">
+
+        <div class="slide activo">
+
+            <img src="img/bannernuevo.jpeg" alt="Banner 1">
+
+            <div class="contenido-banner">
+
+                <span>Nueva Colección</span>
+
+                <h2>Elegancia para cada ocasión</h2>
+
+                <p>
+                    Descubrí vestidos, blusas y prendas únicas seleccionadas especialmente para vos.
+                </p>
+
+                <a href="productos.html" class="btn-banner">
+
+                    Ver colección
+
+                </a>
+
+            </div>
+
+        </div>
+
+        <div class="slide">
+
+            <img src="img/banner1 (2).jpeg" alt="Banner 2">
+
+            <div class="contenido-banner">
+
+                <span>Temporada 2026</span>
+
+                <h2>Moda con estilo propio</h2>
+
+                <p>
+
+                    Prendas exclusivas para cada momento.
+
+                </p>
+
+                <a href="productos.html" class="btn-banner">
+
+                    Comprar ahora
+
+                </a>
+
+            </div>
+
+        </div>
+
+        </div>
+
+        <button class="anterior">
+
+            <i class="fa-solid fa-chevron-left"></i>
+
+        </button>
+
+        <button class="siguiente">
+
+            <i class="fa-solid fa-chevron-right"></i>
+
+        </button>
+
+    </div>
+
+</section>
+
+<!-- ================= BUSCADOR FLOTANTE ================= -->
+
+<section class="busqueda-flotante">
+
+    <div class="buscador">
+
+        <div class="campo">
+
+            <label>Categoría</label>
+
+            <select id="categoria">
+
+                <option value="">Todas</option>
+
+                <option value="vestidos">Vestidos</option>
+
+                <option value="blusas">Blusas</option>
+
+                <option value="pantalones">Pantalones</option>
+
+            </select>
+
+        </div>
+
+        <div class="campo">
+
+            <label>Talle</label>
+
+            <select id="talle">
+
+                <option value="">Todos</option>
+
+                <option>XS</option>
+
+                <option>S</option>
+
+                <option>M</option>
+
+                <option>L</option>
+
+                <option>XL</option>
+
+                <option>XXL</option>
+
+                <option>38</option>
+
+                <option>40</option>
+
+                <option>42</option>
+
+                <option>44</option>
+
+            </select>
+
+        </div>
+
+        <div class="campo">
+
+            <label>Buscar</label>
+
+            <button onclick="buscar()" class="btn-buscar">
+
+                <i class="fa-solid fa-magnifying-glass"></i>
+
+                Buscar
+
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- ================= CATEGORÍAS ================= -->
+
+<section class="categorias">
+
+    <div class="titulo-seccion">
+
+        <span>EXPLORÁ</span>
+
+        <h2>Nuestras Categorías</h2>
+
+        <p>
+            Encontrá la prenda ideal para cada ocasión.
+        </p>
+
+    </div>
+
+    <div class="grid-categorias">
+
+        <a href="productos.html?categoria=vestidos" class="categoria-card">
+
+            <img src="img/productos/GazaEstampado M.jpeg" alt="Vestidos">
+
+            <div class="overlay">
+
+                <h3>Vestidos</h3>
+
+                <span>Ver colección</span>
+
+            </div>
+
+        </a>
+
+        <a href="productos.html?categoria=blusas" class="categoria-card">
+
+            <img src="img/categorias/blusas.jpg" alt="Blusas">
+
+            <div class="overlay">
+
+                <h3>Blusas</h3>
+
+                <span>Ver colección</span>
+
+            </div>
+
+        </a>
+
+        <a href="productos.html?categoria=pantalones" class="categoria-card">
+
+            <img src="img/categorias/pantalones.jpg" alt="Pantalones">
+
+            <div class="overlay">
+
+                <h3>Pantalones</h3>
+
+                <span>Ver colección</span>
+
+            </div>
+
+        </a>
+
+    </div>
+
+</section>
+
+<!-- ================= SOBRE NOSOTROS ================= -->
+
+<section class="nosotros">
+
+    <div class="nosotros-img">
+
+        <img src="img/logonuevo.jpeg" alt="El Baúl de la Moda">
+
+    </div>
+
+    <div class="nosotros-texto">
+
+        <span>QUIÉNES SOMOS</span>
+
+        <h2>Moda pensada para vos</h2>
+
+        <p>
+
+            En El Baúl de la Moda seleccionamos prendas de excelente calidad,
+            buscando siempre ofrecer diseños únicos y precios accesibles.
+
+        </p>
+
+        <p>
+
+            Nuestro objetivo es que cada clienta encuentre un outfit con el que
+            se sienta cómoda, elegante y segura.
+
+        </p>
+
+        <a href="productos.html" class="btn-banner">
+
+            Ver todos los productos
+
+        </a>
+
+    </div>
+
+</section>
+
+<!-- ================= NEWSLETTER ================= -->
+
+<section class="newsletter">
+
+    <h2>
+
+        Enterate antes que nadie
+
+    </h2>
+
+    <p>
+
+        Recibí novedades, promociones y nuevos ingresos.
+
+    </p>
+
+    <div class="newsletter-form">
+
+        <input
+        type="email"
+        placeholder="Tu correo electrónico">
+
+        <button>
+
+            Suscribirme
+
+        </button>
+
+    </div>
+
+</section>
+
+<!-- ================= FOOTER ================= -->
+
+<footer id="contacto" class="footer">
+
+    <div class="footer-contenedor">
+
+        <div class="footer-col marca-footer">
+            <h3>El Baúl de la Moda</h3>
+            <p>
+                Moda femenina con estilo, elegancia y prendas seleccionadas
+                para cada ocasión.
+            </p>
+
+            <div class="redes">
+                <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                <a href="https://wa.me/5493518112558" target="_blank"><i class="fa-brands fa-whatsapp"></i></a>
+                <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+            </div>
+        </div>
+
+        <div class="footer-col">
+            <h4>Comprar</h4>
+            <a href="productos.html">Todos los productos</a>
+            <a href="productos.html?categoria=vestidos">Vestidos</a>
+            <a href="productos.html?categoria=blusas">Blusas</a>
+            <a href="productos.html?categoria=pantalones">Pantalones</a>
+            <a href="productos.html?categoria=sweaters">Sweaters</a>
+        </div>
+
+        <div class="footer-col">
+            <h4>Ayuda</h4>
+            <a href="#">Cómo comprar</a>
+            <a href="#">Envíos</a>
+            <a href="#">Cambios y devoluciones</a>
+            <a href="#">Preguntas frecuentes</a>
+            <a href="#">Términos y condiciones</a>
+        </div>
+
+        <div class="footer-col">
+            <h4>Contacto</h4>
+
+            <p><i class="fa-brands fa-whatsapp"></i> 351 811 2558</p>
+            <p><i class="fa-solid fa-envelope"></i> contacto@elbauldelamoda.com</p>
+            <p><i class="fa-solid fa-location-dot"></i> Córdoba, Argentina</p>
+
+            <div class="newsletter-footer">
+                <input type="email" placeholder="Tu email">
+                <button><i class="fa-solid fa-paper-plane"></i></button>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="footer-bottom">
+        <p>© 2026 El Baúl de la Moda. Todos los derechos reservados.</p>
+    </div>
+
+</footer>
+
+<!-- BOTÓN WHATSAPP -->
+
+<a
+href="https://wa.me/5493518112558"
+class="whatsapp"
+target="_blank">
+
+<i class="fa-brands fa-whatsapp"></i>
+
+</a>
+
+<script src="js/productos.js"></script>
+
+<script src="js/main.js"></script>
+
+<script src="js/slider.js"></script>
+
+<script src="js/carrito.js"></script>
+
+<script>
+
+function buscar(){
+
+const categoria=document.getElementById("categoria").value;
+
+const talle=document.getElementById("talle").value;
+
+window.location.href=
+`productos.html?categoria=${categoria}&talle=${talle}`;
+
+}
+
+</script>
+
+<script src="js/productos.js"></script>
+<script src="js/carrito.js"></script>
+<script src="js/main.js"></script>
+<script src="js/slider.js"></script>
+
+<script
+    type="module"
+    src="js/productos-firebase.js">
+</script>
+
+</body>
+
+</html>

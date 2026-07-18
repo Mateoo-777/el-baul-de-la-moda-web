@@ -1,0 +1,179 @@
+/* ===========================
+   TABLETS
+=========================== */
+
+@media(max-width:992px){
+
+header{
+
+    flex-direction:column;
+
+    gap:20px;
+
+}
+
+nav{
+
+    flex-wrap:wrap;
+
+    justify-content:center;
+
+}
+
+.banner{
+
+    height:500px;
+
+}
+
+.texto-banner h2{
+
+    font-size:48px;
+
+}
+
+.texto-banner p{
+
+    font-size:20px;
+
+}
+
+}
+
+/* ===========================
+   CELULARES
+=========================== */
+
+@media(max-width:768px){
+
+.logo{
+
+    flex-direction:column;
+
+    text-align:center;
+
+}
+
+.logo img{
+
+    width:60px;
+
+    height:60px;
+
+}
+
+.logo h1{
+
+    font-size:26px;
+
+}
+
+nav{
+
+    gap:18px;
+
+}
+
+.banner{
+
+    height:380px;
+
+}
+
+.texto-banner{
+
+    left:8%;
+
+    width:80%;
+
+}
+
+.texto-banner h2{
+
+    font-size:34px;
+
+}
+
+.texto-banner p{
+
+    font-size:18px;
+
+}
+
+#contenedor-productos{
+
+    grid-template-columns:1fr;
+
+}
+
+.item{
+
+    flex-direction:column;
+
+    text-align:center;
+
+}
+
+.item img{
+
+    width:180px;
+
+    height:180px;
+
+}
+
+}
+
+/* ===========================
+   CELULARES PEQUEÑOS
+=========================== */
+
+@media(max-width:480px){
+
+header{
+
+    padding:15px;
+
+}
+
+.logo h1{
+
+    font-size:22px;
+
+}
+
+nav{
+
+    flex-direction:column;
+
+    align-items:center;
+
+    gap:12px;
+
+}
+
+.banner{
+
+    height:300px;
+
+}
+
+.texto-banner h2{
+
+    font-size:28px;
+
+}
+
+.texto-banner p{
+
+    font-size:16px;
+
+}
+
+.btn-banner{
+
+    padding:12px 22px;
+
+}
+
+}

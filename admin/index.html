@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Panel de administración | El Baúl de la Moda</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet"
+    >
+
+    <link rel="stylesheet" href="admin.css">
+
+</head>
+
+<body>
+
+    <aside class="sidebar">
+
+        <div class="marca">
+
+            <h2>El Baúl</h2>
+
+            <p>Administración</p>
+
+        </div>
+
+        <nav class="menu">
+
+            <button class="menu-activo">
+                📦 Productos
+            </button>
+
+            <a href="pedidos.html">
+                🛒 Pedidos
+            </a>
+
+            <a href="../index.html">
+                🏠 Ver tienda
+            </a>
+
+        </nav>
+
+        <button id="cerrar-sesion" class="cerrar-sesion">
+            Cerrar sesión
+        </button>
+
+    </aside>
+
+
+    <main class="contenido">
+
+        <header class="encabezado">
+
+            <div>
+
+                <p class="subtitulo">Panel de administración</p>
+
+                <h1>Productos</h1>
+
+            </div>
+
+            <button
+                id="boton-nuevo-producto"
+                class="boton-principal"
+            >
+                + Nuevo producto
+            </button>
+
+        </header>
+
+
+        <section class="estadisticas">
+
+            <article>
+
+                <span>Total de productos</span>
+
+                <strong id="total-productos">0</strong>
+
+            </article>
+
+            <article>
+
+                <span>Productos visibles</span>
+
+                <strong id="productos-visibles">0</strong>
+
+            </article>
+
+            <article>
+
+                <span>Sin stock</span>
+
+                <strong id="productos-sin-stock">0</strong>
+
+            </article>
+
+        </section>
+
+
+        <section
+            id="seccion-formulario"
+            class="panel-formulario oculto"
+        >
+
+            <div class="titulo-formulario">
+
+                <div>
+
+                    <p>Administración de productos</p>
+
+                    <h2 id="titulo-formulario">
+                        Nuevo producto
+                    </h2>
+
+                </div>
+
+                <button
+                    id="cerrar-formulario"
+                    class="boton-cerrar"
+                    type="button"
+                >
+                    ×
+                </button>
+
+            </div>
+
+
+            <form id="formulario-producto">
+
+                <input
+                    type="hidden"
+                    id="producto-id"
+                >
+
+
+                <div class="cuadricula-formulario">
+
+                    <div class="campo campo-completo">
+
+                        <label for="nombre">
+                            Nombre del producto
+                        </label>
+
+                        <input
+                            type="text"
+                            id="nombre"
+                            placeholder="Ej: Vestido Animal Print"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="campo">
+
+                        <label for="precio">
+                            Precio
+                        </label>
+
+                        <input
+                            type="number"
+                            id="precio"
+                            min="0"
+                            placeholder="22000"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="campo">
+
+                        <label for="precio-anterior">
+                            Precio anterior
+                        </label>
+
+                        <input
+                            type="number"
+                            id="precio-anterior"
+                            min="0"
+                            placeholder="Opcional"
+                        >
+
+                    </div>
+
+
+                    <div class="campo">
+
+                        <label for="stock">
+                            Stock
+                        </label>
+
+                        <input
+                            type="number"
+                            id="stock"
+                            min="0"
+                            value="0"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="campo">
+
+                        <label for="categoria">
+                            Categoría
+                        </label>
+
+                        <select id="categoria" required>
+
+                            <option value="">
+                                Seleccionar
+                            </option>
+
+                            <option value="vestidos">
+                                Vestidos
+                            </option>
+
+                            <option value="blusas">
+                                Blusas
+                            </option>
+
+                            <option value="pantalones">
+                                Pantalones
+                            </option>
+
+                            <option value="sweaters">
+                                Sweaters
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="campo">
+
+                        <label for="talle">
+                            Talle
+                        </label>
+
+                        <select id="talle">
+
+                            <option value="">
+                                Sin especificar
+                            </option>
+
+                            <option value="S">S</option>
+
+                            <option value="M">M</option>
+
+                            <option value="L">L</option>
+
+                            <option value="XL">XL</option>
+
+                            <option value="XXL">XXL</option>
+
+                            <option value="3XL">3XL</option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="campo">
+
+                        <label for="marca">
+                            Marca
+                        </label>
+
+                        <input
+                            type="text"
+                            id="marca"
+                            placeholder="Opcional"
+                        >
+
+                    </div>
+
+
+                    <div class="campo campo-completo">
+
+                        <label>
+                            Imagen principal
+                        </label>
+
+                        <div class="selector-imagen">
+
+                            <input
+                                type="file"
+                                id="archivo-imagen"
+                                accept="image/png,image/jpeg,image/webp"
+                            >
+
+                            <label
+                                for="archivo-imagen"
+                                class="boton-archivo"
+                            >
+                                Elegir archivo
+                            </label>
+
+                            <span id="nombre-archivo">
+                                Ningún archivo seleccionado
+                            </span>
+
+                        </div>
+
+                        <p class="ayuda">
+
+                            Después de elegirla, copiá la imagen
+                            dentro de la carpeta
+                            <strong>img/productos</strong>.
+
+                        </p>
+
+                    </div>
+
+
+                    <div class="campo campo-completo">
+
+                        <label for="ruta-imagen">
+                            Ruta de la imagen
+                        </label>
+
+                        <input
+                            type="text"
+                            id="ruta-imagen"
+                            placeholder="img/productos/vestido.jpg"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="campo campo-completo">
+
+                        <div class="contenedor-vista-previa">
+
+                            <img
+                                id="vista-previa"
+                                src=""
+                                alt="Vista previa"
+                            >
+
+                            <p id="texto-vista-previa">
+                                La vista previa aparecerá aquí.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="campo campo-completo">
+
+                        <label for="descripcion">
+                            Descripción
+                        </label>
+
+                        <textarea
+                            id="descripcion"
+                            rows="5"
+                            placeholder="Descripción del producto..."
+                        ></textarea>
+
+                    </div>
+
+
+                    <div class="opciones campo-completo">
+
+                        <label>
+
+                            <input
+                                type="checkbox"
+                                id="destacado"
+                            >
+
+                            Producto destacado
+
+                        </label>
+
+                        <label>
+
+                            <input
+                                type="checkbox"
+                                id="visible"
+                                checked
+                            >
+
+                            Visible en la tienda
+
+                        </label>
+
+                    </div>
+
+                </div>
+
+
+                <div class="acciones-formulario">
+
+                    <button
+                        type="button"
+                        id="cancelar-producto"
+                        class="boton-secundario"
+                    >
+                        Cancelar
+                    </button>
+
+                    <button
+                        type="submit"
+                        id="guardar-producto"
+                        class="boton-principal"
+                    >
+                        Guardar producto
+                    </button>
+
+                </div>
+
+                <p id="mensaje-formulario"></p>
+
+            </form>
+
+        </section>
+
+
+        <section class="panel-listado">
+
+            <div class="barra-listado">
+
+                <div>
+
+                    <p>Catálogo</p>
+
+                    <h2>Productos existentes</h2>
+
+                </div>
+
+                <input
+                    type="search"
+                    id="buscador-productos"
+                    placeholder="Buscar producto..."
+                >
+
+            </div>
+
+            <div
+                id="lista-productos"
+                class="lista-productos"
+            >
+
+                <p class="cargando">
+                    Cargando productos...
+                </p>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <div id="modal-eliminar" class="modal oculto">
+
+        <div class="modal-contenido">
+
+            <h3>¿Eliminar producto?</h3>
+
+            <p>
+                Esta acción no se puede deshacer.
+            </p>
+
+            <div class="modal-acciones">
+
+                <button
+                    id="cancelar-eliminacion"
+                    class="boton-secundario"
+                >
+                    Cancelar
+                </button>
+
+                <button
+                    id="confirmar-eliminacion"
+                    class="boton-peligro"
+                >
+                    Eliminar
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <script
+        type="module"
+        src="admin.js"
+    ></script>
+
+</body>
+
+</html>

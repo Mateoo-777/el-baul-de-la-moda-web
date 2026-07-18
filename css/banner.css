@@ -1,0 +1,123 @@
+/* ===========================
+   BANNER
+=========================== */
+
+.banner{
+
+    width:100%;
+
+    max-width:100%;
+
+    height:650px;
+
+    position:relative;
+
+    overflow:hidden;
+
+    margin:0;
+
+}
+
+.slide{
+
+    position:absolute;
+
+    width:100%;
+
+    height:100%;
+
+    opacity:0;
+
+    transition:opacity 1s ease-in-out;
+
+}
+
+.slide.activa{
+
+    opacity:1;
+
+}
+
+.slide img{
+
+    width:100%;
+
+    height:100%;
+
+    object-fit:cover;
+
+}
+
+/* Oscurece un poco la imagen */
+
+.slide::after{
+
+    content:"";
+
+    position:absolute;
+
+    inset:0;
+
+    background:rgba(0,0,0,.25);
+
+}
+
+/* ===========================
+   TEXTO DEL BANNER
+=========================== */
+
+.texto-banner{
+
+    position:absolute;
+
+    top:50%;
+
+    left:10%;
+
+    transform:translateY(-50%);
+
+    color:white;
+
+    z-index:5;
+
+}
+
+.texto-banner h2{
+
+    color:white;
+
+    font-size:70px;
+
+    margin-bottom:20px;
+
+}
+
+.texto-banner p{
+
+    font-size:24px;
+
+    margin-bottom:35px;
+
+}
+
+.btn-banner{
+
+    background:#c89b3c;
+
+    color:white;
+
+    padding:18px 35px;
+
+    border-radius:50px;
+
+    font-weight:bold;
+
+    transition:.3s;
+
+}
+
+.btn-banner:hover{
+
+    background:#b18326;
+
+}
