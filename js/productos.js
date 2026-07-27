@@ -1,15 +1,20 @@
 window.productosLocales = [];
 
-/* Convierte las rutas para que funcionen correctamente
-   cuando tienen espacios, paréntesis u otros caracteres. */
+/* ===========================
+   PREPARAR RUTA DE IMAGEN
+=========================== */
+
 function prepararRutaImagen(ruta) {
     if (typeof ruta !== "string" || ruta.trim() === "") {
         return "";
     }
 
-    // No usar encodeURI porque puede romper enlaces de Firebase
     return ruta.trim();
 }
+
+/* ===========================
+   PROTEGER TEXTOS DEL HTML
+=========================== */
 
 function escaparTexto(texto) {
     return String(texto ?? "")
@@ -19,6 +24,10 @@ function escaparTexto(texto) {
         .replaceAll('"', "&quot;")
         .replaceAll("'", "&#039;");
 }
+
+/* ===========================
+   OBTENER IMÁGENES
+=========================== */
 
 function obtenerImagenesProducto(producto) {
     let imagenes = [];
@@ -38,12 +47,12 @@ function obtenerImagenesProducto(producto) {
         imagenes.push(producto.imagen);
     }
 
-    if (imagenes.length === 0) {
-        imagenes.push("img/productos/sin-imagen.jpg");
-    }
-
     return [...new Set(imagenes)];
 }
+
+/* ===========================
+   MOSTRAR PRODUCTOS
+=========================== */
 
 function mostrarProductos(lista) {
     const contenedor =
@@ -74,6 +83,7 @@ function mostrarProductos(lista) {
                 No hay productos disponibles.
             </p>
         `;
+
         return;
     }
 
@@ -123,6 +133,27 @@ function mostrarProductos(lista) {
 
         tarjeta.className = "producto";
 
+        const contenidoImagenes =
+            imagenes.length > 0
+                ? imagenes.map((imagen, indice) => `
+                    <img
+                        src="${prepararRutaImagen(imagen)}"
+                        alt="${nombreSeguro}"
+                        class="producto-slide"
+                        loading="lazy"
+                        style="display: ${
+                            indice === 0
+                                ? "block"
+                                : "none"
+                        };"
+                    >
+                `).join("")
+                : `
+                    <div class="producto-sin-imagen">
+                        Imagen no disponible
+                    </div>
+                `;
+
         tarjeta.innerHTML = `
             <div class="slider">
                 <button
@@ -133,15 +164,7 @@ function mostrarProductos(lista) {
                     &#10094;
                 </button>
 
-                ${imagenes.map((imagen, indice) => `
-    <img
-        src="${prepararRutaImagen(imagen)}"
-        alt="${nombreSeguro}"
-        class="slide"
-        loading="lazy"
-        style="display: ${indice === 0 ? "block" : "none"};"
-    >
-`).join("")}
+                ${contenidoImagenes}
 
                 <button
                     class="next"
@@ -197,22 +220,19 @@ function mostrarProductos(lista) {
             </div>
         `;
 
-        const slides = tarjeta.querySelectorAll(".slide");
+        const imagenesTarjeta =
+            tarjeta.querySelectorAll(".producto-slide");
 
-slides.forEach(slide => {
-    slide.addEventListener("load", () => {
-        console.log("Imagen cargada:", slide.src);
-    });
+        imagenesTarjeta.forEach(imagen => {
+            imagen.addEventListener("error", () => {
+                console.error(
+                    "No se pudo cargar la imagen:",
+                    imagen.getAttribute("src")
+                );
 
-    slide.addEventListener("error", () => {
-        console.error(
-            "No se pudo cargar la imagen:",
-            slide.getAttribute("src")
-        );
-
-        slide.style.display = "none";
-    });
-});
+                imagen.style.display = "none";
+            });
+        });
 
         const botonAgregar =
             tarjeta.querySelector(".agregar-carrito");
@@ -238,13 +258,29 @@ slides.forEach(slide => {
     });
 }
 
+/* ===========================
+   SLIDER DE CADA PRODUCTO
+=========================== */
+
 function prepararSlider(tarjeta) {
-    const slides = tarjeta.querySelectorAll(".slide");
-    const botonAnterior = tarjeta.querySelector(".prev");
-    const botonSiguiente = tarjeta.querySelector(".next");
+    const slides =
+        tarjeta.querySelectorAll(".producto-slide");
+
+    const botonAnterior =
+        tarjeta.querySelector(".prev");
+
+    const botonSiguiente =
+        tarjeta.querySelector(".next");
 
     if (slides.length === 0) {
-        console.error("El producto no tiene imágenes.");
+        if (botonAnterior) {
+            botonAnterior.style.display = "none";
+        }
+
+        if (botonSiguiente) {
+            botonSiguiente.style.display = "none";
+        }
+
         return;
     }
 
@@ -253,37 +289,49 @@ function prepararSlider(tarjeta) {
     function mostrarSlide(indice) {
         slides.forEach((slide, posicion) => {
             slide.style.display =
-                posicion === indice ? "block" : "none";
+                posicion === indice
+                    ? "block"
+                    : "none";
         });
     }
 
     mostrarSlide(0);
 
     if (slides.length === 1) {
-        if (botonAnterior) botonAnterior.style.display = "none";
-        if (botonSiguiente) botonSiguiente.style.display = "none";
+        if (botonAnterior) {
+            botonAnterior.style.display = "none";
+        }
+
+        if (botonSiguiente) {
+            botonSiguiente.style.display = "none";
+        }
+
         return;
     }
 
-    botonAnterior.addEventListener("click", () => {
-        indiceActual--;
+    if (botonAnterior) {
+        botonAnterior.addEventListener("click", () => {
+            indiceActual--;
 
-        if (indiceActual < 0) {
-            indiceActual = slides.length - 1;
-        }
+            if (indiceActual < 0) {
+                indiceActual = slides.length - 1;
+            }
 
-        mostrarSlide(indiceActual);
-    });
+            mostrarSlide(indiceActual);
+        });
+    }
 
-    botonSiguiente.addEventListener("click", () => {
-        indiceActual++;
+    if (botonSiguiente) {
+        botonSiguiente.addEventListener("click", () => {
+            indiceActual++;
 
-        if (indiceActual >= slides.length) {
-            indiceActual = 0;
-        }
+            if (indiceActual >= slides.length) {
+                indiceActual = 0;
+            }
 
-        mostrarSlide(indiceActual);
-    });
+            mostrarSlide(indiceActual);
+        });
+    }
 }
 
 window.mostrarProductos = mostrarProductos;
