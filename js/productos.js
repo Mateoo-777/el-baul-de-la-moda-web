@@ -57,10 +57,11 @@ const productos = window.productosLocales = [
    cuando tienen espacios, paréntesis u otros caracteres. */
 function prepararRutaImagen(ruta) {
     if (typeof ruta !== "string" || ruta.trim() === "") {
-        return "img/productos/sin-imagen.jpg";
+        return "";
     }
 
-    return encodeURI(ruta.trim());
+    // No usar encodeURI porque puede romper enlaces de Firebase
+    return ruta.trim();
 }
 
 function escaparTexto(texto) {
@@ -186,13 +187,14 @@ function mostrarProductos(lista) {
                 </button>
 
                 ${imagenes.map((imagen, indice) => `
-                    <img
-                        src="${prepararRutaImagen(imagen)}"
-                        alt="${nombreSeguro}"
-                        class="slide ${indice === 0 ? "activa" : ""}"
-                        loading="lazy"
-                    >
-                `).join("")}
+    <img
+        src="${prepararRutaImagen(imagen)}"
+        alt="${nombreSeguro}"
+        class="slide"
+        loading="lazy"
+        style="display: ${indice === 0 ? "block" : "none"};"
+    >
+`).join("")}
 
                 <button
                     class="next"
@@ -248,21 +250,22 @@ function mostrarProductos(lista) {
             </div>
         `;
 
-        const slides =
-            tarjeta.querySelectorAll(".slide");
+        const slides = tarjeta.querySelectorAll(".slide");
 
-        slides.forEach(slide => {
-            slide.addEventListener("error", () => {
-                if (
-                    !slide.src.includes("sin-imagen.jpg")
-                ) {
-                    slide.src =
-                        prepararRutaImagen(
-                            "img/productos/sin-imagen.jpg"
-                        );
-                }
-            });
-        });
+slides.forEach(slide => {
+    slide.addEventListener("load", () => {
+        console.log("Imagen cargada:", slide.src);
+    });
+
+    slide.addEventListener("error", () => {
+        console.error(
+            "No se pudo cargar la imagen:",
+            slide.getAttribute("src")
+        );
+
+        slide.style.display = "none";
+    });
+});
 
         const botonAgregar =
             tarjeta.querySelector(".agregar-carrito");
@@ -289,20 +292,12 @@ function mostrarProductos(lista) {
 }
 
 function prepararSlider(tarjeta) {
-    const slides =
-        tarjeta.querySelectorAll(".slide");
+    const slides = tarjeta.querySelectorAll(".slide");
+    const botonAnterior = tarjeta.querySelector(".prev");
+    const botonSiguiente = tarjeta.querySelector(".next");
 
-    const botonAnterior =
-        tarjeta.querySelector(".prev");
-
-    const botonSiguiente =
-        tarjeta.querySelector(".next");
-
-    if (
-        !slides.length ||
-        !botonAnterior ||
-        !botonSiguiente
-    ) {
+    if (slides.length === 0) {
+        console.error("El producto no tiene imágenes.");
         return;
     }
 
@@ -310,35 +305,35 @@ function prepararSlider(tarjeta) {
 
     function mostrarSlide(indice) {
         slides.forEach((slide, posicion) => {
-            slide.classList.toggle(
-                "activa",
-                posicion === indice
-            );
+            slide.style.display =
+                posicion === indice ? "block" : "none";
         });
     }
 
     mostrarSlide(0);
 
-    if (slides.length <= 1) {
-        botonAnterior.style.display = "none";
-        botonSiguiente.style.display = "none";
+    if (slides.length === 1) {
+        if (botonAnterior) botonAnterior.style.display = "none";
+        if (botonSiguiente) botonSiguiente.style.display = "none";
         return;
     }
 
     botonAnterior.addEventListener("click", () => {
-        indiceActual =
-            indiceActual === 0
-                ? slides.length - 1
-                : indiceActual - 1;
+        indiceActual--;
+
+        if (indiceActual < 0) {
+            indiceActual = slides.length - 1;
+        }
 
         mostrarSlide(indiceActual);
     });
 
     botonSiguiente.addEventListener("click", () => {
-        indiceActual =
-            indiceActual === slides.length - 1
-                ? 0
-                : indiceActual + 1;
+        indiceActual++;
+
+        if (indiceActual >= slides.length) {
+            indiceActual = 0;
+        }
 
         mostrarSlide(indiceActual);
     });
