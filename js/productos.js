@@ -53,20 +53,70 @@ const productos = window.productosLocales = [
     }
 ];
 
+/* Convierte las rutas para que funcionen correctamente
+   cuando tienen espacios, paréntesis u otros caracteres. */
+function prepararRutaImagen(ruta) {
+    if (typeof ruta !== "string" || ruta.trim() === "") {
+        return "img/productos/sin-imagen.jpg";
+    }
+
+    return encodeURI(ruta.trim());
+}
+
+function escaparTexto(texto) {
+    return String(texto ?? "")
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+}
+
+function obtenerImagenesProducto(producto) {
+    let imagenes = [];
+
+    if (Array.isArray(producto.imagenes)) {
+        imagenes = producto.imagenes.filter(imagen =>
+            typeof imagen === "string" &&
+            imagen.trim() !== ""
+        );
+    }
+
+    if (
+        imagenes.length === 0 &&
+        typeof producto.imagen === "string" &&
+        producto.imagen.trim() !== ""
+    ) {
+        imagenes.push(producto.imagen);
+    }
+
+    if (imagenes.length === 0) {
+        imagenes.push("img/productos/sin-imagen.jpg");
+    }
+
+    return [...new Set(imagenes)];
+}
+
 function mostrarProductos(lista) {
     const contenedor =
         document.getElementById("contenedor-productos");
 
     if (!contenedor) {
         console.error(
-            'No existe un elemento con id="contenedor-productos"'
+            'No existe un elemento con id="contenedor-productos".'
         );
         return;
     }
 
     contenedor.innerHTML = "";
 
+    if (!Array.isArray(lista)) {
+        console.error("La lista de productos no es válida.");
+        return;
+    }
+
     const productosVisibles = lista.filter(producto =>
+        producto &&
         producto.visible !== false
     );
 
@@ -81,28 +131,44 @@ function mostrarProductos(lista) {
 
     productosVisibles.forEach(producto => {
         const imagenes =
-            Array.isArray(producto.imagenes) &&
-            producto.imagenes.length > 0
-                ? producto.imagenes
-                : [
-                    producto.imagen ||
-                    "img/productos/sin-imagen.jpg"
-                ];
+            obtenerImagenesProducto(producto);
 
         const precio =
             Number(producto.precio) || 0;
 
+        const precioAnteriorNumero =
+            Number(producto.precioAnterior);
+
         const precioAnterior =
             producto.precioAnterior !== null &&
             producto.precioAnterior !== undefined &&
-            Number(producto.precioAnterior) > precio
-                ? Number(producto.precioAnterior)
+            !Number.isNaN(precioAnteriorNumero) &&
+            precioAnteriorNumero > precio
+                ? precioAnteriorNumero
                 : null;
 
+        const stock =
+            producto.stock === null ||
+            producto.stock === undefined ||
+            producto.stock === ""
+                ? null
+                : Number(producto.stock);
+
         const sinStock =
-            producto.stock !== null &&
-            producto.stock !== undefined &&
-            Number(producto.stock) <= 0;
+            stock !== null &&
+            !Number.isNaN(stock) &&
+            stock <= 0;
+
+        const nombreSeguro =
+            escaparTexto(
+                producto.nombre || "Producto sin nombre"
+            );
+
+        const talleSeguro =
+            escaparTexto(producto.talle || "");
+
+        const marcaSegura =
+            escaparTexto(producto.marca || "");
 
         const tarjeta =
             document.createElement("article");
@@ -121,13 +187,10 @@ function mostrarProductos(lista) {
 
                 ${imagenes.map((imagen, indice) => `
                     <img
-                        src="${imagen}"
-                        alt="${producto.nombre}"
+                        src="${prepararRutaImagen(imagen)}"
+                        alt="${nombreSeguro}"
                         class="slide ${indice === 0 ? "activa" : ""}"
-                        onerror="
-                            this.onerror=null;
-                            this.src='img/productos/sin-imagen.jpg';
-                        "
+                        loading="lazy"
                     >
                 `).join("")}
 
@@ -141,23 +204,23 @@ function mostrarProductos(lista) {
             </div>
 
             <div class="producto-info">
-                <h3>${producto.nombre}</h3>
+                <h3>${nombreSeguro}</h3>
 
                 ${
-                    producto.talle
-                        ? `<p>Talle: ${producto.talle}</p>`
+                    talleSeguro
+                        ? `<p>Talle: ${talleSeguro}</p>`
                         : ""
                 }
 
                 ${
-                    producto.marca
-                        ? `<p>Marca: ${producto.marca}</p>`
+                    marcaSegura
+                        ? `<p>Marca: ${marcaSegura}</p>`
                         : ""
                 }
 
                 <div class="precios">
                     ${
-                        precioAnterior
+                        precioAnterior !== null
                             ? `
                                 <span class="precio-anterior">
                                     $${precioAnterior.toLocaleString("es-AR")}
@@ -176,17 +239,35 @@ function mostrarProductos(lista) {
                     type="button"
                     ${sinStock ? "disabled" : ""}
                 >
-                    ${sinStock
-                        ? "Sin stock"
-                        : "Agregar al carrito"}
+                    ${
+                        sinStock
+                            ? "Sin stock"
+                            : "Agregar al carrito"
+                    }
                 </button>
             </div>
         `;
 
+        const slides =
+            tarjeta.querySelectorAll(".slide");
+
+        slides.forEach(slide => {
+            slide.addEventListener("error", () => {
+                if (
+                    !slide.src.includes("sin-imagen.jpg")
+                ) {
+                    slide.src =
+                        prepararRutaImagen(
+                            "img/productos/sin-imagen.jpg"
+                        );
+                }
+            });
+        });
+
         const botonAgregar =
             tarjeta.querySelector(".agregar-carrito");
 
-        if (!sinStock) {
+        if (!sinStock && botonAgregar) {
             botonAgregar.addEventListener("click", () => {
                 if (
                     typeof window.agregarAlCarrito ===
@@ -195,7 +276,7 @@ function mostrarProductos(lista) {
                     window.agregarAlCarrito(producto);
                 } else {
                     console.error(
-                        "No existe la función agregarAlCarrito"
+                        "No existe la función agregarAlCarrito."
                     );
                 }
             });
@@ -217,9 +298,11 @@ function prepararSlider(tarjeta) {
     const botonSiguiente =
         tarjeta.querySelector(".next");
 
-    if (slides.length <= 1) {
-        botonAnterior.style.display = "none";
-        botonSiguiente.style.display = "none";
+    if (
+        !slides.length ||
+        !botonAnterior ||
+        !botonSiguiente
+    ) {
         return;
     }
 
@@ -234,22 +317,28 @@ function prepararSlider(tarjeta) {
         });
     }
 
-    botonAnterior.addEventListener("click", () => {
-        indiceActual--;
+    mostrarSlide(0);
 
-        if (indiceActual < 0) {
-            indiceActual = slides.length - 1;
-        }
+    if (slides.length <= 1) {
+        botonAnterior.style.display = "none";
+        botonSiguiente.style.display = "none";
+        return;
+    }
+
+    botonAnterior.addEventListener("click", () => {
+        indiceActual =
+            indiceActual === 0
+                ? slides.length - 1
+                : indiceActual - 1;
 
         mostrarSlide(indiceActual);
     });
 
     botonSiguiente.addEventListener("click", () => {
-        indiceActual++;
-
-        if (indiceActual >= slides.length) {
-            indiceActual = 0;
-        }
+        indiceActual =
+            indiceActual === slides.length - 1
+                ? 0
+                : indiceActual + 1;
 
         mostrarSlide(indiceActual);
     });
