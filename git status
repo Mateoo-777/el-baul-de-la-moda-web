@@ -1,0 +1,154 @@
+[1mdiff --git a/js/productos.js b/js/productos.js[m
+[1mindex e40c7b8..689f37e 100644[m
+[1m--- a/js/productos.js[m
+[1m+++ b/js/productos.js[m
+[36m@@ -57,10 +57,11 @@[m [mconst productos = window.productosLocales = [[m
+    cuando tienen espacios, paréntesis u otros caracteres. */[m
+ function prepararRutaImagen(ruta) {[m
+     if (typeof ruta !== "string" || ruta.trim() === "") {[m
+[31m-        return "img/productos/sin-imagen.jpg";[m
+[32m+[m[32m        return "";[m
+     }[m
+ [m
+[31m-    return encodeURI(ruta.trim());[m
+[32m+[m[32m    // No usar encodeURI porque puede romper enlaces de Firebase[m
+[32m+[m[32m    return ruta.trim();[m
+ }[m
+ [m
+ function escaparTexto(texto) {[m
+[36m@@ -186,13 +187,14 @@[m [mfunction mostrarProductos(lista) {[m
+                 </button>[m
+ [m
+                 ${imagenes.map((imagen, indice) => `[m
+[31m-                    <img[m
+[31m-                        src="${prepararRutaImagen(imagen)}"[m
+[31m-                        alt="${nombreSeguro}"[m
+[31m-                        class="slide ${indice === 0 ? "activa" : ""}"[m
+[31m-                        loading="lazy"[m
+[31m-                    >[m
+[31m-                `).join("")}[m
+[32m+[m[32m    <img[m
+[32m+[m[32m        src="${prepararRutaImagen(imagen)}"[m
+[32m+[m[32m        alt="${nombreSeguro}"[m
+[32m+[m[32m        class="slide"[m
+[32m+[m[32m        loading="lazy"[m
+[32m+[m[32m        style="display: ${indice === 0 ? "block" : "none"};"[m
+[32m+[m[32m    >[m
+[32m+[m[32m`).join("")}[m
+ [m
+                 <button[m
+                     class="next"[m
+[36m@@ -248,21 +250,22 @@[m [mfunction mostrarProductos(lista) {[m
+             </div>[m
+         `;[m
+ [m
+[31m-        const slides =[m
+[31m-            tarjeta.querySelectorAll(".slide");[m
+[32m+[m[32m        const slides = tarjeta.querySelectorAll(".slide");[m
+ [m
+[31m-        slides.forEach(slide => {[m
+[31m-            slide.addEventListener("error", () => {[m
+[31m-                if ([m
+[31m-                    !slide.src.includes("sin-imagen.jpg")[m
+[31m-                ) {[m
+[31m-                    slide.src =[m
+[31m-                        prepararRutaImagen([m
+[31m-                            "img/productos/sin-imagen.jpg"[m
+[31m-                        );[m
+[31m-                }[m
+[31m-            });[m
+[31m-        });[m
+[32m+[m[32mslides.forEach(slide => {[m
+[32m+[m[32m    slide.addEventListener("load", () => {[m
+[32m+[m[32m        console.log("Imagen cargada:", slide.src);[m
+[32m+[m[32m    });[m
+[32m+[m
+[32m+[m[32m    slide.addEventListener("error", () => {[m
+[32m+[m[32m        console.error([m
+[32m+[m[32m            "No se pudo cargar la imagen:",[m
+[32m+[m[32m            slide.getAttribute("src")[m
+[32m+[m[32m        );[m
+[32m+[m
+[32m+[m[32m        slide.style.display = "none";[m
+[32m+[m[32m    });[m
+[32m+[m[32m});[m
+ [m
+         const botonAgregar =[m
+             tarjeta.querySelector(".agregar-carrito");[m
+[36m@@ -289,20 +292,12 @@[m [mfunction mostrarProductos(lista) {[m
+ }[m
+ [m
+ function prepararSlider(tarjeta) {[m
+[31m-    const slides =[m
+[31m-        tarjeta.querySelectorAll(".slide");[m
+[31m-[m
+[31m-    const botonAnterior =[m
+[31m-        tarjeta.querySelector(".prev");[m
+[31m-[m
+[31m-    const botonSiguiente =[m
+[31m-        tarjeta.querySelector(".next");[m
+[32m+[m[32m    const slides = tarjeta.querySelectorAll(".slide");[m
+[32m+[m[32m    const botonAnterior = tarjeta.querySelector(".prev");[m
+[32m+[m[32m    const botonSiguiente = tarjeta.querySelector(".next");[m
+ [m
+[31m-    if ([m
+[31m-        !slides.length ||[m
+[31m-        !botonAnterior ||[m
+[31m-        !botonSiguiente[m
+[31m-    ) {[m
+[32m+[m[32m    if (slides.length === 0) {[m
+[32m+[m[32m        console.error("El producto no tiene imágenes.");[m
+         return;[m
+     }[m
+ [m
+[36m@@ -310,35 +305,35 @@[m [mfunction prepararSlider(tarjeta) {[m
+ [m
+     function mostrarSlide(indice) {[m
+         slides.forEach((slide, posicion) => {[m
+[31m-            slide.classList.toggle([m
+[31m-                "activa",[m
+[31m-                posicion === indice[m
+[31m-            );[m
+[32m+[m[32m            slide.style.display =[m
+[32m+[m[32m                posicion === indice ? "block" : "none";[m
+         });[m
+     }[m
+ [m
+     mostrarSlide(0);[m
+ [m
+[31m-    if (slides.length <= 1) {[m
+[31m-        botonAnterior.style.display = "none";[m
+[31m-        botonSiguiente.style.display = "none";[m
+[32m+[m[32m    if (slides.length === 1) {[m
+[32m+[m[32m        if (botonAnterior) botonAnterior.style.display = "none";[m
+[32m+[m[32m        if (botonSiguiente) botonSiguiente.style.display = "none";[m
+         return;[m
+     }[m
+ [m
+     botonAnterior.addEventListener("click", () => {[m
+[31m-        indiceActual =[m
+[31m-            indiceActual === 0[m
+[31m-                ? slides.length - 1[m
+[31m-                : indiceActual - 1;[m
+[32m+[m[32m        indiceActual--;[m
+[32m+[m
+[32m+[m[32m        if (indiceActual < 0) {[m
+[32m+[m[32m            indiceActual = slides.length - 1;[m
+[32m+[m[32m        }[m
+ [m
+         mostrarSlide(indiceActual);[m
+     });[m
+ [m
+     botonSiguiente.addEventListener("click", () => {[m
+[31m-        indiceActual =[m
+[31m-            indiceActual === slides.length - 1[m
+[31m-                ? 0[m
+[31m-                : indiceActual + 1;[m
+[32m+[m[32m        indiceActual++;[m
+[32m+[m
+[32m+[m[32m        if (indiceActual >= slides.length) {[m
+[32m+[m[32m            indiceActual = 0;[m
+[32m+[m[32m        }[m
+ [m
+         mostrarSlide(indiceActual);[m
+     });[m
