@@ -1,207 +1,584 @@
-.carrito{
+/* ===========================
+   PÁGINA DEL CARRITO
+=========================== */
 
-    width:90%;
-
-    max-width:1200px;
-
-    margin:60px auto;
-
+.carrito {
+    width: 92%;
+    max-width: 1350px;
+    margin: 55px auto 90px;
 }
 
-.carrito h2{
-
-    text-align:center;
-
-    margin-bottom:40px;
-
+.encabezado-carrito {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 25px;
+    margin-bottom: 35px;
 }
 
-.item{
-
-    display:flex;
-
-    align-items:center;
-
-    gap:20px;
-
-    background:white;
-
-    padding:20px;
-
-    margin-bottom:20px;
-
-    border-radius:15px;
-
-    box-shadow:0 4px 15px rgba(0,0,0,.08);
-
+.encabezado-carrito h2 {
+    margin: 4px 0 0;
+    color: #252525;
+    font-family: "Playfair Display", serif;
+    font-size: 42px;
 }
 
-.item img{
-
-    width:120px;
-
-    height:120px;
-
-    object-fit:cover;
-
-    border-radius:10px;
-
+.subtitulo-carrito {
+    color: #b47e2c;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
 }
 
-#total{
-
-    margin-top:30px;
-
-    font-size:30px;
-
+.seguir-comprando {
+    color: #8c6325;
+    font-weight: 600;
+    text-decoration: none;
+    transition: 0.2s;
 }
 
-#vaciar{
-
-    margin-top:25px;
-
-    background:#b88b3a;
-
-    color:white;
-
-    padding:15px 30px;
-
-    border:none;
-
-    border-radius:10px;
-
-    font-size:18px;
-
+.seguir-comprando:hover {
+    color: #5f4217;
+    transform: translateX(-3px);
 }
 
-#vaciar:hover{
+/* ===========================
+   DISTRIBUCIÓN
+=========================== */
 
-    background:#9f772f;
+.carrito-contenido {
+    display: grid;
+    grid-template-columns:
+        minmax(0, 1fr)
+        370px;
+    gap: 35px;
+    align-items: start;
+}
 
+.lista-carrito {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* ===========================
+   PRODUCTO DEL CARRITO
+=========================== */
+
+.item-carrito {
+    display: grid;
+    grid-template-columns:
+        150px
+        minmax(0, 1fr)
+        auto;
+    gap: 22px;
+    align-items: center;
+
+    padding: 20px;
+    overflow: hidden;
+
+    background: white;
+    border: 1px solid #eeeeee;
+    border-radius: 18px;
+    box-shadow: 0 6px 20px
+        rgba(0, 0, 0, 0.07);
+}
+
+.imagen-item-carrito {
+    width: 150px;
+    height: 160px;
+    overflow: hidden;
+    background: #f1f1f1;
+    border-radius: 13px;
+}
+
+.imagen-item-carrito img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+.sin-imagen-carrito {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 100%;
+    height: 100%;
+    padding: 15px;
+
+    color: #777;
+    font-size: 14px;
+    text-align: center;
+}
+
+.informacion-item h3 {
+    margin: 0 0 11px;
+    color: #252525;
+    font-size: 21px;
+    line-height: 1.3;
+}
+
+.talle-item,
+.precio-unitario {
+    margin: 6px 0;
+    color: #666;
+    font-size: 15px;
+}
+
+.eliminar-item {
+    margin-top: 14px;
+    padding: 0;
+
+    color: #a23939;
+    background: transparent;
+    border: none;
+
+    font-size: 14px;
+    font-weight: 600;
+
+    cursor: pointer;
+}
+
+.eliminar-item:hover {
+    text-decoration: underline;
+}
+
+/* ===========================
+   CANTIDAD Y SUBTOTAL
+=========================== */
+
+.acciones-item {
+    display: flex;
+    min-width: 145px;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 20px;
+}
+
+.control-cantidad {
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+
+    border: 1px solid #dddddd;
+    border-radius: 10px;
+}
+
+.control-cantidad button {
+    width: 38px;
+    height: 38px;
+
+    padding: 0;
+    border: none;
+
+    color: #333;
+    background: #f5f5f5;
+
+    font-size: 21px;
+    cursor: pointer;
+
+    transition: background 0.2s;
+}
+
+.control-cantidad button:hover {
+    background: #e7e7e7;
+}
+
+.control-cantidad span {
+    min-width: 42px;
+    color: #333;
+    font-weight: 600;
+    text-align: center;
+}
+
+.subtotal-item {
+    color: #a87526;
+    font-size: 21px;
+}
+
+/* ===========================
+   RESUMEN DEL CARRITO
+=========================== */
+
+.resumen-carrito {
+    position: sticky;
+    top: 25px;
+
+    padding: 28px;
+
+    background: white;
+    border: 1px solid #eeeeee;
+    border-radius: 20px;
+    box-shadow: 0 8px 25px
+        rgba(0, 0, 0, 0.08);
+}
+
+.resumen-carrito h2 {
+    margin: 0 0 25px;
+    color: #252525;
+    font-family: "Playfair Display", serif;
+    font-size: 29px;
+}
+
+.fila-resumen {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+
+    padding: 13px 0;
+
+    color: #555;
+    border-bottom: 1px solid #eeeeee;
+}
+
+.total-resumen {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+
+    margin-top: 9px;
+    padding: 18px 0 10px;
+
+    color: #222;
+    font-size: 19px;
+}
+
+.total-resumen strong {
+    color: #a87526;
+    font-size: 26px;
+}
+
+.aviso-envio {
+    margin: 13px 0 22px;
+    color: #777;
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+.btn-ir-finalizar,
+.btn-vaciar {
+    width: 100%;
+    padding: 14px 18px;
+
+    border-radius: 11px;
+
+    font-size: 15px;
+    font-weight: 700;
+
+    cursor: pointer;
+    transition: 0.25s;
+}
+
+.btn-ir-finalizar {
+    color: white;
+    background: #b47e2c;
+    border: none;
+}
+
+.btn-ir-finalizar:hover {
+    background: #92651f;
+    transform: translateY(-2px);
+}
+
+.btn-ir-finalizar:disabled {
+    background: #aaaaaa;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.btn-vaciar {
+    margin-top: 11px;
+
+    color: #9d3434;
+    background: transparent;
+    border: 1px solid #d9a7a7;
+}
+
+.btn-vaciar:hover {
+    color: white;
+    background: #a33c3c;
+    border-color: #a33c3c;
+}
+
+/* ===========================
+   CARRITO VACÍO
+=========================== */
+
+.carrito-vacio {
+    padding: 65px 25px;
+
+    background: white;
+    border: 1px solid #eeeeee;
+    border-radius: 20px;
+    box-shadow: 0 6px 20px
+        rgba(0, 0, 0, 0.06);
+
+    text-align: center;
+}
+
+.icono-carrito-vacio {
+    margin-bottom: 15px;
+    font-size: 55px;
+}
+
+.carrito-vacio h3 {
+    margin: 0 0 8px;
+    color: #222;
+    font-size: 25px;
+}
+
+.carrito-vacio p {
+    margin: 0 0 25px;
+    color: #777;
+}
+
+.btn-ver-productos {
+    display: inline-block;
+    padding: 13px 24px;
+
+    color: white;
+    background: #b47e2c;
+    border-radius: 10px;
+
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.btn-ver-productos:hover {
+    background: #92651f;
 }
 
 /* ===========================
    DATOS DEL PEDIDO
 =========================== */
 
-.datos-pedido{
-    margin-top:50px;
-    background:white;
-    padding:35px;
-    border-radius:24px;
-    box-shadow:0 10px 30px rgba(0,0,0,.09);
+.datos-pedido {
+    margin-top: 60px;
+    padding: 38px;
+
+    background: white;
+    border: 1px solid #eeeeee;
+    border-radius: 24px;
+    box-shadow: 0 10px 30px
+        rgba(0, 0, 0, 0.08);
+
+    scroll-margin-top: 25px;
 }
 
-.datos-pedido h2{
-    font-family:"Playfair Display",serif;
-    font-size:34px;
-    margin-bottom:25px;
+.titulo-pedido {
+    margin-bottom: 28px;
 }
 
-.form-pedido{
-    display:grid;
-    grid-template-columns:repeat(2,1fr);
-    gap:20px;
+.titulo-pedido h2 {
+    margin: 5px 0 8px;
+    color: #252525;
+    font-family: "Playfair Display", serif;
+    font-size: 35px;
 }
 
-.form-pedido div{
-    display:flex;
-    flex-direction:column;
-    gap:8px;
+.titulo-pedido p {
+    margin: 0;
+    color: #666;
 }
 
-.form-pedido label{
-    font-weight:600;
-    color:#444;
+.form-pedido {
+    display: grid;
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+    gap: 20px;
+}
+
+.form-pedido div {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.form-pedido label {
+    color: #444;
+    font-weight: 600;
 }
 
 .form-pedido input,
-.form-pedido textarea{
-    width:100%;
-    padding:14px 16px;
-    border:1px solid #ddd;
-    border-radius:12px;
-    outline:none;
-    font-family:"Poppins",sans-serif;
+.form-pedido textarea {
+    width: 100%;
+    padding: 14px 16px;
+
+    color: #333;
+    background: #fafafa;
+    border: 1px solid #dddddd;
+    border-radius: 12px;
+    outline: none;
+
+    font-family: "Poppins", sans-serif;
+    font-size: 15px;
+
+    box-sizing: border-box;
+    transition: 0.2s;
 }
 
 .form-pedido input:focus,
-.form-pedido textarea:focus{
-    border-color:#c89b3c;
-    box-shadow:0 0 0 3px rgba(200,155,60,.12);
+.form-pedido textarea:focus {
+    background: white;
+    border-color: #c89b3c;
+    box-shadow: 0 0 0 3px
+        rgba(200, 155, 60, 0.13);
 }
 
-.form-pedido textarea{
-    min-height:110px;
-    resize:vertical;
+.form-pedido textarea {
+    min-height: 120px;
+    resize: vertical;
 }
 
-.campo-completo{
-    grid-column:1 / -1;
+.campo-completo {
+    grid-column: 1 / -1;
 }
 
-.btn-confirmar-pedido{
-    width:100%;
-    margin-top:25px;
-    padding:16px;
-    border:none;
-    border-radius:14px;
-    background:#c89b3c;
-    color:white;
-    font-size:17px;
-    font-weight:700;
-    cursor:pointer;
-    transition:.3s;
+.btn-confirmar-pedido {
+    width: 100%;
+    margin-top: 25px;
+    padding: 16px;
+
+    color: white;
+    background: #b47e2c;
+    border: none;
+    border-radius: 13px;
+
+    font-size: 17px;
+    font-weight: 700;
+
+    cursor: pointer;
+    transition: 0.25s;
 }
 
-.btn-confirmar-pedido:hover{
-    background:#a87722;
-    transform:translateY(-2px);
+.btn-confirmar-pedido:hover {
+    background: #92651f;
+    transform: translateY(-2px);
 }
 
-.btn-confirmar-pedido:disabled{
-    background:#aaa;
-    cursor:not-allowed;
-    transform:none;
+.btn-confirmar-pedido:disabled {
+    background: #aaaaaa;
+    cursor: not-allowed;
+    transform: none;
 }
+
+/* ===========================
+   MENSAJES DEL PEDIDO
+=========================== */
 
 .mensaje-exito,
-.mensaje-error{
-    margin-top:18px;
-    padding:14px;
-    border-radius:12px;
-    font-weight:600;
+.mensaje-error {
+    margin-top: 18px;
+    padding: 14px;
+    border-radius: 12px;
+    font-weight: 600;
 }
 
-.mensaje-exito{
-    background:#dcfce7;
-    color:#166534;
+.mensaje-exito {
+    color: #166534;
+    background: #dcfce7;
 }
 
-.mensaje-error{
-    background:#fee2e2;
-    color:#991b1b;
+.mensaje-error {
+    color: #991b1b;
+    background: #fee2e2;
 }
 
-.carrito-vacio{
-    padding:35px;
-    text-align:center;
-    background:white;
-    border-radius:18px;
-}
+/* ===========================
+   TABLETS
+=========================== */
 
-@media(max-width:700px){
-
-    .form-pedido{
-        grid-template-columns:1fr;
+@media (max-width: 950px) {
+    .carrito-contenido {
+        grid-template-columns: 1fr;
     }
 
-    .campo-completo{
-        grid-column:auto;
+    .resumen-carrito {
+        position: static;
+    }
+}
+
+/* ===========================
+   CELULARES
+=========================== */
+
+@media (max-width: 700px) {
+    .carrito {
+        width: 94%;
+        margin-top: 35px;
     }
 
-    .datos-pedido{
-        padding:24px;
+    .encabezado-carrito {
+        align-items: flex-start;
+        flex-direction: column;
     }
 
+    .encabezado-carrito h2 {
+        font-size: 34px;
+    }
+
+    .item-carrito {
+        grid-template-columns: 105px 1fr;
+        gap: 15px;
+        padding: 15px;
+    }
+
+    .imagen-item-carrito {
+        width: 105px;
+        height: 125px;
+    }
+
+    .acciones-item {
+        grid-column: 1 / -1;
+
+        width: 100%;
+        min-width: 0;
+
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+
+        padding-top: 15px;
+        border-top: 1px solid #eeeeee;
+    }
+
+    .form-pedido {
+        grid-template-columns: 1fr;
+    }
+
+    .campo-completo {
+        grid-column: auto;
+    }
+
+    .datos-pedido {
+        padding: 25px 20px;
+    }
+}
+
+/* ===========================
+   CELULARES PEQUEÑOS
+=========================== */
+
+@media (max-width: 430px) {
+    .item-carrito {
+        grid-template-columns: 1fr;
+    }
+
+    .imagen-item-carrito {
+        width: 100%;
+        height: 280px;
+    }
+
+    .acciones-item {
+        grid-column: auto;
+    }
+
+    .resumen-carrito {
+        padding: 22px;
+    }
 }

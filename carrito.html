@@ -2,212 +2,501 @@
 <html lang="es">
 
 <head>
+    <meta charset="UTF-8">
 
-<meta charset="UTF-8">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrito | El Baúl de la Moda</title>
 
-<title>Carrito | El Baúl de la Moda</title>
-
-<link rel="stylesheet" href="css/style.css">
-<link rel="stylesheet" href="css/header.css">
-<link rel="stylesheet" href="css/carrito.css">
-<link rel="stylesheet" href="css/responsive.css">
-
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/header.css">
+    <link rel="stylesheet" href="css/carrito.css">
+    <link rel="stylesheet" href="css/responsive.css">
 </head>
 
 <body>
 
 <header>
+    <div class="logo">
+        <img
+            src="img/logo.png"
+            alt="Logo de El Baúl de la Moda"
+        >
 
-<div class="logo">
+        <div>
+            <h1>El Baúl de la Moda</h1>
+            <p>Moda con estilo</p>
+        </div>
+    </div>
 
-<img src="img/logo.png">
+    <nav>
+        <a href="index.html">Inicio</a>
 
-<div>
+        <a href="productos.html">
+            Productos
+        </a>
 
-<h1>El Baúl de la Moda</h1>
+        <a
+            href="carrito.html"
+            class="enlace-carrito"
+            aria-label="Abrir carrito"
+        >
+            🛒
 
-<p>Moda con estilo</p>
-
-</div>
-
-</div>
-
-<nav>
-
-<a href="index.html">Inicio</a>
-
-<a href="productos.html">Productos</a>
-
-<a href="carrito.html">
-
-🛒
-
-<span id="contador-carrito"></span>
-
-</a>
-
-</nav>
-
+            <span id="contador-carrito">
+                0
+            </span>
+        </a>
+    </nav>
 </header>
 
-<section class="carrito">
+<main class="carrito">
 
-<h2>Mi carrito</h2>
-
-<div id="lista-carrito">
-
-</div>
-
-<h3 id="total"></h3>
-
-<section class="datos-pedido">
-
-    <h2>Finalizar pedido</h2>
-
-    <div class="form-pedido">
-
+    <div class="encabezado-carrito">
         <div>
-            <label for="cliente-nombre">Nombre y apellido</label>
+            <span class="subtitulo-carrito">
+                Tu selección
+            </span>
 
-            <input
-                type="text"
-                id="cliente-nombre"
-                placeholder="Ej: María López"
+            <h2>Mi carrito</h2>
+        </div>
+
+        <a
+            href="productos.html"
+            class="seguir-comprando"
+        >
+            ← Seguir comprando
+        </a>
+    </div>
+
+    <div class="carrito-contenido">
+
+        <section
+            id="lista-carrito"
+            class="lista-carrito"
+            aria-live="polite"
+        >
+        </section>
+
+        <aside class="resumen-carrito">
+            <h2>Resumen</h2>
+
+            <div class="fila-resumen">
+                <span>Productos</span>
+
+                <span id="cantidad-productos">
+                    0
+                </span>
+            </div>
+
+            <div class="fila-resumen">
+                <span>Subtotal</span>
+
+                <span id="subtotal">
+                    $0
+                </span>
+            </div>
+
+            <div class="fila-resumen">
+                <span>Envío</span>
+
+                <span>A coordinar</span>
+            </div>
+
+            <div class="total-resumen">
+                <span>Total</span>
+
+                <strong id="total">
+                    $0
+                </strong>
+            </div>
+
+            <p class="aviso-envio">
+                El costo y la forma de entrega se
+                coordinarán al confirmar el pedido.
+            </p>
+
+            <button
+                id="ir-finalizar"
+                class="btn-ir-finalizar"
+                type="button"
             >
-        </div>
+                Continuar con el pedido
+            </button>
 
-        <div>
-            <label for="cliente-telefono">WhatsApp</label>
-
-            <input
-                type="tel"
-                id="cliente-telefono"
-                placeholder="Ej: 3518112558"
+            <button
+                id="vaciar"
+                class="btn-vaciar"
+                type="button"
             >
-        </div>
-
-        <div>
-            <label for="cliente-email">Correo electrónico</label>
-
-            <input
-                type="email"
-                id="cliente-email"
-                placeholder="Ej: maria@email.com"
-            >
-        </div>
-
-        <div>
-            <label for="cliente-direccion">Dirección</label>
-
-            <input
-                type="text"
-                id="cliente-direccion"
-                placeholder="Calle, número y localidad"
-            >
-        </div>
-
-        <div class="campo-completo">
-
-            <label for="cliente-notas">Notas del pedido</label>
-
-            <textarea
-                id="cliente-notas"
-                placeholder="Color, horario de entrega u otra aclaración"
-            ></textarea>
-
-        </div>
+                Vaciar carrito
+            </button>
+        </aside>
 
     </div>
 
-    <button id="confirmar-pedido" class="btn-confirmar-pedido">
+    <section
+        id="seccion-finalizar"
+        class="datos-pedido"
+    >
+        <div class="titulo-pedido">
+            <span class="subtitulo-carrito">
+                Último paso
+            </span>
 
-        Confirmar pedido
+            <h2>Finalizar pedido</h2>
 
-    </button>
+            <p>
+                Completá tus datos para enviarnos
+                el pedido.
+            </p>
+        </div>
 
-    <p id="mensaje-pedido"></p>
-
-</section>
-
-<button id="vaciar">
-
-Vaciar carrito
-
-</button>
-
-</section>
-
-<script src="js/productos.js"></script>
-<script src="js/carrito.js"></script>
-<script src="js/main.js"></script>
-
-<script>
-
-const lista=document.getElementById("lista-carrito");
-
-const total=document.getElementById("total");
-
-function mostrarCarrito(){
-
-    lista.innerHTML="";
-
-    let suma=0;
-
-    carrito.forEach(item=>{
-
-        suma+=item.precio*item.cantidad;
-
-        lista.innerHTML+=`
-
-        <div class="item">
-
-            <img src="${item.imagen}">
+        <div class="form-pedido">
 
             <div>
+                <label for="cliente-nombre">
+                    Nombre y apellido *
+                </label>
 
-                <h3>${item.nombre}</h3>
+                <input
+                    type="text"
+                    id="cliente-nombre"
+                    placeholder="Ej: María López"
+                    autocomplete="name"
+                    required
+                >
+            </div>
 
-                <p>$${item.precio.toLocaleString("es-AR")}</p>
+            <div>
+                <label for="cliente-telefono">
+                    WhatsApp *
+                </label>
 
-                <p>Cantidad: ${item.cantidad}</p>
+                <input
+                    type="tel"
+                    id="cliente-telefono"
+                    placeholder="Ej: 3518112558"
+                    autocomplete="tel"
+                    required
+                >
+            </div>
 
+            <div>
+                <label for="cliente-email">
+                    Correo electrónico
+                </label>
+
+                <input
+                    type="email"
+                    id="cliente-email"
+                    placeholder="Ej: maria@email.com"
+                    autocomplete="email"
+                >
+            </div>
+
+            <div>
+                <label for="cliente-direccion">
+                    Dirección
+                </label>
+
+                <input
+                    type="text"
+                    id="cliente-direccion"
+                    placeholder="Calle, número y localidad"
+                    autocomplete="street-address"
+                >
+            </div>
+
+            <div class="campo-completo">
+                <label for="cliente-notas">
+                    Notas del pedido
+                </label>
+
+                <textarea
+                    id="cliente-notas"
+                    placeholder="Color, horario de entrega u otra aclaración"
+                ></textarea>
             </div>
 
         </div>
 
-        `;
+        <button
+            id="confirmar-pedido"
+            class="btn-confirmar-pedido"
+            type="button"
+        >
+            Confirmar pedido
+        </button>
 
-    });
+        <p
+            id="mensaje-pedido"
+            aria-live="polite"
+        ></p>
+    </section>
 
-    total.innerHTML="Total: $"+suma.toLocaleString("es-AR");
+</main>
 
-}
-
-mostrarCarrito();
-
-document.getElementById("vaciar").onclick=()=>{
-
-    localStorage.removeItem("carrito");
-
-    carrito=[];
-
-    mostrarCarrito();
-
-    actualizarContador();
-
-}
-
-</script>
-
-<script src="js/productos.js"></script>
 <script src="js/carrito.js"></script>
 
 <script
     type="module"
-    src="js/pedidos.js">
-</script>
+    src="js/pedidos.js"
+></script>
+
+</body>
+
+</html><!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Carrito | El Baúl de la Moda</title>
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/header.css">
+    <link rel="stylesheet" href="css/carrito.css">
+    <link rel="stylesheet" href="css/responsive.css">
+</head>
+
+<body>
+
+<header>
+    <div class="logo">
+        <img
+            src="img/logo.png"
+            alt="Logo de El Baúl de la Moda"
+        >
+
+        <div>
+            <h1>El Baúl de la Moda</h1>
+            <p>Moda con estilo</p>
+        </div>
+    </div>
+
+    <nav>
+        <a href="index.html">Inicio</a>
+
+        <a href="productos.html">
+            Productos
+        </a>
+
+        <a
+            href="carrito.html"
+            class="enlace-carrito"
+            aria-label="Abrir carrito"
+        >
+            🛒
+
+            <span id="contador-carrito">
+                0
+            </span>
+        </a>
+    </nav>
+</header>
+
+<main class="carrito">
+
+    <div class="encabezado-carrito">
+        <div>
+            <span class="subtitulo-carrito">
+                Tu selección
+            </span>
+
+            <h2>Mi carrito</h2>
+        </div>
+
+        <a
+            href="productos.html"
+            class="seguir-comprando"
+        >
+            ← Seguir comprando
+        </a>
+    </div>
+
+    <div class="carrito-contenido">
+
+        <section
+            id="lista-carrito"
+            class="lista-carrito"
+            aria-live="polite"
+        >
+        </section>
+
+        <aside class="resumen-carrito">
+            <h2>Resumen</h2>
+
+            <div class="fila-resumen">
+                <span>Productos</span>
+
+                <span id="cantidad-productos">
+                    0
+                </span>
+            </div>
+
+            <div class="fila-resumen">
+                <span>Subtotal</span>
+
+                <span id="subtotal">
+                    $0
+                </span>
+            </div>
+
+            <div class="fila-resumen">
+                <span>Envío</span>
+
+                <span>A coordinar</span>
+            </div>
+
+            <div class="total-resumen">
+                <span>Total</span>
+
+                <strong id="total">
+                    $0
+                </strong>
+            </div>
+
+            <p class="aviso-envio">
+                El costo y la forma de entrega se
+                coordinarán al confirmar el pedido.
+            </p>
+
+            <button
+                id="ir-finalizar"
+                class="btn-ir-finalizar"
+                type="button"
+            >
+                Continuar con el pedido
+            </button>
+
+            <button
+                id="vaciar"
+                class="btn-vaciar"
+                type="button"
+            >
+                Vaciar carrito
+            </button>
+        </aside>
+
+    </div>
+
+    <section
+        id="seccion-finalizar"
+        class="datos-pedido"
+    >
+        <div class="titulo-pedido">
+            <span class="subtitulo-carrito">
+                Último paso
+            </span>
+
+            <h2>Finalizar pedido</h2>
+
+            <p>
+                Completá tus datos para enviarnos
+                el pedido.
+            </p>
+        </div>
+
+        <div class="form-pedido">
+
+            <div>
+                <label for="cliente-nombre">
+                    Nombre y apellido *
+                </label>
+
+                <input
+                    type="text"
+                    id="cliente-nombre"
+                    placeholder="Ej: María López"
+                    autocomplete="name"
+                    required
+                >
+            </div>
+
+            <div>
+                <label for="cliente-telefono">
+                    WhatsApp *
+                </label>
+
+                <input
+                    type="tel"
+                    id="cliente-telefono"
+                    placeholder="Ej: 3518112558"
+                    autocomplete="tel"
+                    required
+                >
+            </div>
+
+            <div>
+                <label for="cliente-email">
+                    Correo electrónico
+                </label>
+
+                <input
+                    type="email"
+                    id="cliente-email"
+                    placeholder="Ej: maria@email.com"
+                    autocomplete="email"
+                >
+            </div>
+
+            <div>
+                <label for="cliente-direccion">
+                    Dirección
+                </label>
+
+                <input
+                    type="text"
+                    id="cliente-direccion"
+                    placeholder="Calle, número y localidad"
+                    autocomplete="street-address"
+                >
+            </div>
+
+            <div class="campo-completo">
+                <label for="cliente-notas">
+                    Notas del pedido
+                </label>
+
+                <textarea
+                    id="cliente-notas"
+                    placeholder="Color, horario de entrega u otra aclaración"
+                ></textarea>
+            </div>
+
+        </div>
+
+        <button
+            id="confirmar-pedido"
+            class="btn-confirmar-pedido"
+            type="button"
+        >
+            Confirmar pedido
+        </button>
+
+        <p
+            id="mensaje-pedido"
+            aria-live="polite"
+        ></p>
+    </section>
+
+</main>
+
+<script src="js/carrito.js"></script>
+
+<script
+    type="module"
+    src="js/pedidos.js"
+></script>
 
 </body>
 
